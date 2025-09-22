@@ -1,0 +1,128 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Trackfy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen p-4">
+
+<div class="w-full max-w-sm">
+    <div class="bg-gray-900 border border-green-600 rounded-xl shadow-lg p-8">
+        <div class="text-center mb-8">
+            <div class="mx-auto w-14 h-14 bg-green-600 rounded-full flex items-center justify-center mb-4 shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mouse-pointer2-icon lucide-mouse-pointer-2"><path d="M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z"/></svg>
+            </div>
+            <h1 class="text-2xl font-extrabold text-green-500 tracking-wide">Trackfy</h1>
+            <p class="text-sm text-gray-400 mt-1">Acesse sua conta</p>
+        </div>
+
+        <div th:if="${param.error}"
+             class="mb-6 p-3 bg-red-900/40 border border-red-500 rounded-md text-sm text-red-300">
+            Email ou senha inválidos. Tente novamente.
+        </div>
+
+
+        <form th:action="@{/web/login}" method="post" class="space-y-5" id="loginForm">
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-green-400 mb-2">Email</label>
+                <input
+                       name="username"
+                       id="email"
+                       autocomplete="username"
+                       placeholder="exemplo@email.com"
+                       class="w-full px-4 py-2.5 border border-green-600 rounded-lg bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-green-400 mb-2">Senha</label>
+                <div class="relative">
+                    <input type="password"
+                           name="password"
+                           id="password"
+                           autocomplete="current-password"
+                           placeholder="••••••••"
+                           class="w-full px-4 py-2.5 border border-green-600 rounded-lg bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                    <button type="button"
+                            id="togglePassword"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-200">
+                        <svg id="eyeIcon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                        <svg id="eyeOffIcon" class="h-5 w-5 hidden" fill="none" viewBox="0 0 24 24"
+                             stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit"
+                    class="w-full py-2.5 bg-green-600 text-black font-semibold rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-black transition-all"
+                    id="loginButton">
+                <span id="loginButtonText">Entrar</span>
+                <span id="loginButtonLoading" class="hidden flex items-center justify-center">
+                    <svg class="animate-spin h-5 w-5 text-black mr-2" xmlns="http://www.w3.org/2000/svg"
+                         fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Entrando...
+                </span>
+            </button>
+        </form>
+        <div class="mt-4 text-center">
+            <p class="text-sm text-gray-400">
+                Não tem uma conta?
+                <a th:href="@{/web/register}"  class="text-green-500 hover:underline">
+                    Cadastre-se
+                </a>
+            </p>
+        </div>
+        <div class="mt-6 text-center text-xs text-gray-500">
+            © 2025 Trackfy. Todos os direitos reservados.
+        </div>
+    </div>
+</div>
+
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+    const password = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+    togglePassword.addEventListener('click', function () {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        eyeIcon.classList.toggle('hidden');
+        eyeOffIcon.classList.toggle('hidden');
+    });
+
+    const loginForm = document.getElementById('loginForm');
+    const loginButton = document.getElementById('loginButton');
+    const loginButtonText = document.getElementById('loginButtonText');
+    const loginButtonLoading = document.getElementById('loginButtonLoading');
+
+    loginForm.addEventListener('submit', function () {
+        loginButton.disabled = true;
+        loginButtonText.classList.add('hidden');
+        loginButtonLoading.classList.remove('hidden');
+
+        setTimeout(() => {
+            if (loginButton.disabled) {
+                loginButton.disabled = false;
+                loginButtonText.classList.remove('hidden');
+                loginButtonLoading.classList.add('hidden');
+            }
+        }, 8000);
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: trackfy_mottu
+    environment:
+      - 'POSTGRES_DB=trackfy'
+      - 'POSTGRES_PASSWORD=trackfy'
+      - 'POSTGRES_USER=trackfy'
+    ports:
+      - '5432:5432'

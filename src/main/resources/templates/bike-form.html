@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Trackfy - Cadastro de Moto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen p-4">
+
+<!-- Container -->
+<div class="w-full max-w-md">
+    <div class="bg-gray-900 border border-green-600 rounded-xl shadow-lg p-8">
+
+        <!-- Header -->
+        <div class="text-center mb-6">
+            <div class="mx-auto w-14 h-14 bg-green-600 rounded-full flex items-center justify-center mb-4 shadow-md">
+                <svg class="w-7 h-7 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                </svg>
+            </div>
+            <h1 class="text-2xl font-extrabold text-green-500 tracking-wide">Trackfy</h1>
+            <p class="text-sm text-gray-400">Cadastro de Moto</p>
+        </div>
+
+        <!-- Mensagens -->
+        <div th:if="${message}"
+             class="mb-6 p-3 bg-green-900/40 border border-green-500 rounded-md text-sm text-green-300">
+            <span th:text="${message}"></span>
+        </div>
+
+        <div th:if="${error}"
+             class="mb-6 p-3 bg-red-900/40 border border-red-500 rounded-md text-sm text-red-300">
+            <span th:text="${error}"></span>
+        </div>
+
+        <!-- Formulário -->
+        <form th:action="@{/web/bike/form}" th:object="${bike}" method="post" class="space-y-5">
+
+            <!-- Placa -->
+            <div>
+                <label class="block text-sm font-medium text-green-400 mb-2">Placa</label>
+                <input type="text" th:field="*{placa}" placeholder="Digite a placa da moto"
+                       class="w-full px-4 py-2.5 border border-green-600 rounded-lg bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+                <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('placa')}" th:errors="*{placa}"></p>
+            </div>
+
+            <!-- ID do Chassi -->
+            <div>
+                <label class="block text-sm font-medium text-green-400 mb-2">ID do Chassi</label>
+                <input type="number" th:field="*{idChassi}" placeholder="Digite o ID do chassi"
+                       class="w-full px-4 py-2.5 border border-green-600 rounded-lg bg-black text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"/>
+                <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('idChassi')}" th:errors="*{idChassi}"></p>
+            </div>
+
+            <!-- Modelo -->
+            <div>
+                <label class="block text-sm font-medium text-green-400 mb-2">Modelo</label>
+                <select th:field="*{modelo}"
+                        class="block w-full px-4 py-2.5 border border-green-600 rounded-lg bg-black text-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <option value="" disabled selected>Selecione o modelo</option>
+                    <option th:each="modelo : ${T(com.example.challenge_mottu_java.Enums.ModelsBike).values()}"
+                            th:value="${modelo.name()}"
+                            th:text="${modelo.name()}">
+                    </option>
+                </select>
+                <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('modelo')}" th:errors="*{modelo}"></p>
+            </div>
+
+            <!-- Status -->
+            <div>
+                <label class="block text-sm font-medium text-green-400 mb-2">Status</label>
+                <select th:field="*{status}"
+                        class="block w-full px-4 py-2.5 border border-green-600 rounded-lg bg-black text-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <option value="" disabled selected>Selecione o status</option>
+                    <option th:each="status : ${T(com.example.challenge_mottu_java.Enums.StatusBike).values()}"
+                            th:value="${status.name()}"
+                            th:text="${status.name()}">
+                    </option>
+                </select>
+                <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('status')}" th:errors="*{status}"></p>
+            </div>
+
+            <!-- Localização -->
+            <div>
+                <label class="block text-sm font-medium text-green-400 mb-2">Localização</label>
+                <select th:field="*{localizacao}"
+                        class="block w-full px-4 py-2.5 border border-green-600 rounded-lg bg-black text-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <option value="" disabled selected>Selecione a localização</option>
+                    <option th:each="localizacao : ${T(com.example.challenge_mottu_java.Enums.LocationBike).values()}"
+                            th:value="${localizacao.name()}"
+                            th:text="${localizacao.name()}">
+                    </option>
+                </select>
+                <p class="text-red-500 text-sm mt-1" th:if="${#fields.hasErrors('localizacao')}" th:errors="*{localizacao}"></p>
+            </div>
+
+            <!-- Court (Hidden) -->
+            <input type="hidden" th:field="*{court.acessCode}"/>
+
+            <!-- Botões -->
+            <div class="flex space-x-3">
+                <button type="submit"
+                        class="flex-1 py-2.5 bg-green-600 text-black font-semibold rounded-lg hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                    Cadastrar
+                </button>
+                <a th:href="@{/web}"
+                   class="flex-1 py-2.5 bg-gray-600 text-white text-center font-semibold rounded-lg hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+
+        <!-- Rodapé -->
+        <div class="mt-6 text-center text-xs text-gray-500">
+            Pátio: <span th:text="${court.name}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

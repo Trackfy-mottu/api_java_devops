@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackfy - Detalhes da Moto</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-black text-green-500 min-h-screen flex flex-col">
+
+<!-- Navbar -->
+<div class="navbar bg-green-700 text-white px-6">
+    <div class="flex-1">
+        <a class="btn btn-ghost normal-case text-2xl font-bold">Trackfy Dashboard</a>
+    </div>
+    <div class="flex-none">
+        <span class="mr-4">Olá, <span th:text="${user.name}">Usuário</span>!</span>
+        <a href="/web/logout" class="btn btn-outline border-white text-white hover:bg-green-600">Sair</a>
+    </div>
+</div>
+
+<!-- Mensagens -->
+<div th:if="${message}" class="mx-6 mt-4 p-3 bg-green-900/40 border border-green-500 rounded-md text-sm text-green-300">
+    <span th:text="${message}"></span>
+</div>
+
+<div th:if="${error}" class="mx-6 mt-4 p-3 bg-red-900/40 border border-red-500 rounded-md text-sm text-red-300">
+    <span th:text="${error}"></span>
+</div>
+
+<!-- Conteúdo da Moto -->
+<div class="flex flex-col items-center p-8 gap-8 flex-1">
+
+    <!-- Card de Detalhes da Moto -->
+    <div class="card w-full max-w-4xl bg-neutral text-white shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title text-green-400 text-3xl mb-4">Detalhes da Moto</h2>
+            <p><strong>Placa:</strong> <span th:text="${bike.placa}">ABC1234</span></p>
+            <p><strong>ID do Chassi:</strong> <span th:text="${bike.idChassi}">123456789</span></p>
+            <p><strong>Modelo:</strong> <span th:text="${bike.modelo}">ModeloX</span></p>
+            <p><strong>Status:</strong>
+                <span class="badge" th:switch="${bike.status.name()}">
+                    <span th:case="'ProntoParaUso'" class="badge-success" th:text="${bike.status}"></span>
+                    <span th:case="'EmUso'" class="badge-info" th:text="${bike.status}"></span>
+                    <span th:case="'Manutencao'" class="badge-warning" th:text="${bike.status}"></span>
+                    <span th:case="*" class="badge-error" th:text="${bike.status}"></span>
+                </span>
+            </p>
+            <p><strong>Localização:</strong>
+                <span class="badge" th:switch="${bike.localizacao.name()}">
+                    <span th:case="'DENTRO'" class="badge-success" th:text="${bike.localizacao}"></span>
+                    <span th:case="*" class="badge-warning" th:text="${bike.localizacao}"></span>
+                </span>
+            </p>
+            <p><strong>Pátio:</strong> <span th:text="${bike.court.name}">Court XYZ</span></p>
+        </div>
+    </div>
+
+    <!-- Lista de Pendências -->
+    <div class="w-full max-w-4xl mt-6">
+        <h3 class="text-2xl font-bold text-green-400 mb-4">Pendências da Moto</h3>
+
+        <!-- Mensagem quando não há pendências -->
+        <div th:if="${#lists.isEmpty(bike.pendencias)}" class="text-center text-gray-400 py-8">
+            <svg class="w-16 h-16 mx-auto mb-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 8c-3.3137 0-6 2.6863-6 6s2.6863 6 6 6 6-2.6863 6-6-2.6863-6-6-6z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 14v-4"/>
+            </svg>
+            <p class="text-lg">Nenhuma pendência registrada</p>
+        </div>
+
+        <!-- Tabela de Pendências -->
+        <div th:if="${!#lists.isEmpty(bike.pendencias)}" class="overflow-x-auto">
+            <table class="table table-zebra w-full text-white">
+                <thead class="bg-green-700 text-white">
+                <tr>
+                    <th>Número</th>
+                    <th>Descrição</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pending : ${bike.pendencias}">
+                    <td th:text="${pending.number}"></td>
+                    <td th:text="${pending.description}"></td>
+                    <td>
+                        <span class="badge" th:switch="${pending.status.name()}">
+                            <span th:case="'Resolvido'" class="badge-success" th:text="${pending.status}"></span>
+                            <span th:case="'Pendente'" class="badge-warning" th:text="${pending.status}"></span>
+                            <span th:case="'EmAndamento'" class="badge-info" th:text="${pending.status}"></span>
+                            <span th:case="*" class="badge-neutral" th:text="${pending.status}"></span>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Botão Voltar -->
+    <div class="w-full max-w-4xl flex justify-end">
+        <a th:href="@{/web}"
+           class="btn bg-gray-600 hover:bg-gray-500 text-white border-0 px-6 py-2 font-semibold">
+            Voltar
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
