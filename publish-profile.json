@@ -1,0 +1,46 @@
+[
+  {
+    "SQLServerDBConnectionString": "REDACTED",
+    "controlPanelLink": "https://portal.azure.com",
+    "databases": null,
+    "destinationAppUrl": "http://app-trackfy-mottu-java.azurewebsites.net",
+    "hostingProviderForumLink": "",
+    "msdeploySite": "app-trackfy-mottu-java",
+    "mySQLDBConnectionString": "",
+    "profileName": "app-trackfy-mottu-java - Web Deploy",
+    "publishMethod": "MSDeploy",
+    "publishUrl": "app-trackfy-mottu-java.scm.azurewebsites.net:443",
+    "userName": "REDACTED",
+    "userPWD": "REDACTED",
+    "webSystem": "WebSites"
+  },
+  {
+    "SQLServerDBConnectionString": "REDACTED",
+    "controlPanelLink": "https://portal.azure.com",
+    "databases": null,
+    "destinationAppUrl": "http://app-trackfy-mottu-java.azurewebsites.net",
+    "ftpPassiveMode": "True",
+    "hostingProviderForumLink": "",
+    "mySQLDBConnectionString": "",
+    "profileName": "app-trackfy-mottu-java - FTP",
+    "publishMethod": "FTP",
+    "publishUrl": "ftps://waws-prod-bay-205.ftp.azurewebsites.windows.net/site/wwwroot",
+    "userName": "REDACTED",
+    "userPWD": "REDACTED",
+    "webSystem": "WebSites"
+  },
+  {
+    "SQLServerDBConnectionString": "REDACTED",
+    "controlPanelLink": "https://portal.azure.com",
+    "databases": null,
+    "destinationAppUrl": "http://app-trackfy-mottu-java.azurewebsites.net",
+    "hostingProviderForumLink": "",
+    "mySQLDBConnectionString": "",
+    "profileName": "app-trackfy-mottu-java - Zip Deploy",
+    "publishMethod": "ZipDeploy",
+    "publishUrl": "app-trackfy-mottu-java.scm.azurewebsites.net:443",
+    "userName": "REDACTED",
+    "userPWD": "REDACTED",
+    "webSystem": "WebSites"
+  }
+]
