@@ -159,5 +159,13 @@ az group delete \
 ---
 
 ## URLs Importantes
-- **Aplicação**: `https://app-trackfy-mottu-java.azurewebsites.net`
+- **Aplicação**: `https://app-trackfy-mottu-java.azurewebsites.net/web/login`
+- **Swagger**: `https://app-trackfy-mottu-java.azurewebsites.net/swagger-ui/index.html`
 - **Banco PostgreSQL**: `servidor-sqlbd-rm557888.postgres.database.azure.com`
+
+---
+
+## Integrantes
+ - Guilherme Alves - RM 555357
+ - João Vitor Silva Nascimento - RM554694
+ - Rafael Souza Bezerra - RM 557888
